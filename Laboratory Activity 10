@@ -1,0 +1,87 @@
+
+import java.util.ArrayList;
+
+abstract class Book_Class {
+     String Title,BookCode,Author,Genre,Publisher,Edition,DateBorrow,DateReturn;
+     int YearPub;
+
+}
+
+interface Bo0k {
+    void insertBookList();
+    void insertBorrowBook();
+    String displayBookList();
+    String displayBorrowedBooks();
+}
+
+abstract class Bo0kList extends Book_Class implements Bo0k {
+    ArrayList<Book_Class> books = new ArrayList<>();
+    ArrayList<Book_Class> borrowedBooks = new ArrayList<>();
+
+    public void insertBookList(Book_Class book) {
+        books.add(book);
+    }
+
+    public void insertBorrowBook(Book_Class book) {
+        borrowedBooks.add(book);
+    }
+
+    public String displayBookList() {
+        String result = "";
+        for (Book_Class book : books) {
+            result += "\nBook List: "+"\nBook Code: " + book.BookCode + "\nTitle: " + book.Title + "\nAuthor: " +
+                    book.Author + "\nGenre: " + book.Genre + "\nPublisher: " + book.Publisher + "\nYear Published: " +
+                    book.YearPub + "\nEdition: " + book.Edition + "\n\n";
+        }
+        return result;
+    }
+
+    public String displayBorrowedBooks() {
+        String result = "";
+        for (Book_Class book : borrowedBooks) {
+            result += "Borrowed Books: "+"\nBook Code: " + book.BookCode + "\nTitle: " + book.Title + "\nAuthor: " +
+                    book.Author + "\nGenre: " + book.Genre + "\nPublisher: " + book.Publisher + "\nYear Published: " +
+                    book.YearPub + "\nEdition: " + book.Edition + "\nDate Borrowed: "
+                    + book.DateBorrow + "\nDate Returned: " + book.DateBorrow + "\n\n";
+        }
+        return result;
+    }
+}
+public class LA10 {
+    public static void main(String[] args) {
+        Bo0kList bookList = new Bo0kList() {
+            @Override
+            public void insertBookList() {
+
+            }
+
+            @Override
+            public void insertBorrowBook() {
+
+            }
+        };
+        bookList.insertBookList(new Book_Class() {{
+            BookCode = "001CC";
+            Title= "Clean Code";
+            Author = "Robert Cecil Martin";
+            Genre = "Programming";
+            Publisher = "Prentice Hall";
+            YearPub = 2009;
+            Edition = "1st";
+        }});
+        bookList.insertBorrowBook(new Book_Class() {{
+            BookCode = "002PP";
+            Title = "The Pragmatic Programmer";
+            Author = "Andy Hunt and Dave Thomas";
+            Genre = "Programming";
+            Publisher = "Pragmatic Bookshelf";
+            YearPub = 2019;
+            Edition = "20th";
+            DateBorrow = "2022/11/11";
+            DateReturn = "2023/01/20";
+        }});
+        System.out.println(bookList.displayBookList());
+        System.out.println(bookList.displayBorrowedBooks());
+    }
+
+}
